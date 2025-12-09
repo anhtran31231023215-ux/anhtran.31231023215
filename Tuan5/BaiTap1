@@ -1,0 +1,955 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>Men's Shoes - Sneaker Store</title>
+
+  <!-- Bootstrap 3 -->
+  <link rel="stylesheet"
+        href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+  <!-- xZoom -->
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/xzoom@1.0.15/dist/xzoom.css" media="all"/>
+
+  <!-- Bootstrap Star Rating -->
+  <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-star-rating/4.0.0/css/star-rating.min.css"/>
+
+  <style>
+    body{
+      background:#f5f5f5;
+      font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;
+    }
+    .top-bar{
+      text-align:center;
+      font-size:13px;
+      padding:8px 0;
+      background:#fff;
+      border-bottom:1px solid #e5e5e5;
+    }
+    .top-bar a{font-weight:600;}
+
+    /* NAVBAR */
+    .homepage-header-logo{
+      height:30px;
+    }
+
+    .main-wrap{
+      padding:25px 30px 40px;
+    }
+
+    /* Sidebar */
+    .sidebar-title{
+      font-size:15px;
+      font-weight:600;
+      margin-bottom:15px;
+    }
+    .filter-section{
+      margin-bottom:25px;
+    }
+    .filter-section h5{
+      margin:15px 0 8px;
+      font-size:14px;
+      font-weight:600;
+    }
+    .filter-link{
+      cursor:pointer;
+    }
+
+    /* Header right */
+    .page-header-row{
+      margin-bottom:25px;
+    }
+    .page-title{
+      font-size:24px;
+      font-weight:600;
+      margin:0 0 5px;
+    }
+    .page-title span{
+      font-weight:400;
+      color:#777;
+      font-size:18px;
+    }
+    .header-actions a{
+      font-size:13px;
+      margin-left:15px;
+    }
+
+    /* CARD SẢN PHẨM */
+.product-card{
+    background: #fff;
+    border: 1px solid #eee;
+    border-radius: 0;
+    padding: 24px 24px 20px;
+    margin-bottom: 40px;
+    box-shadow: none;              /* bỏ shadow dày dày */
+}
+    /* Khung chứa ảnh lớn, chiếm gần hết chiều ngang */
+.product-image-wrap{
+    background: #f7f7f7;
+    margin-bottom: 18px;
+    height: 260px;                 /* chỉnh cao/thấp theo ý */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.product-image-wrap img{
+    max-height: 220px;
+    max-width: 100%;
+    width: auto;
+    height: auto;
+}
+
+   /* Text */
+.product-label{
+    font-size:12px;
+    font-weight:600;
+    margin-bottom:2px;
+}
+.product-label.promo{color:#d35400;}
+.product-label.best{color:#c0392b;}
+
+   .product-name{
+    font-size:14px;
+    font-weight:600;
+    margin-bottom:2px;
+}
+.product-subtitle{
+    font-size:13px;
+    color:#777;
+    margin-bottom:6px;
+}
+.product-price{
+    font-size:15px;
+    font-weight:600;
+    margin-bottom:6px;
+}
+
+    /* Color dots */
+   .color-dots{
+    margin-bottom: 10px;
+}
+
+    .dot{
+    display:inline-block;
+    width:12px;
+    height:12px;
+    border-radius:50%;
+    margin-right:4px;
+    border:1px solid #ccc;
+}
+.dot-grey{background:#555;}
+.dot-black{background:#111;}
+.dot-white{background:#fff;}
+.dot-red{background:#c0392b;}
+
+   /* Progress “Còn lại xx / yy đôi” */
+.stock-status small{
+    font-size:11px;
+    color:#777;
+}
+    .stock-status .progress{
+    margin:4px 0 4px;
+    height:6px;
+    border-radius:10px;
+    background:#eee;
+}
+.stock-status .progress-bar{
+    border-radius:10px;
+}
+
+    /* Rating & reviews (theo file hướng dẫn) */
+    .ratings{
+      margin-top:4px;
+      font-size:12px;
+    }
+    .ratings .rating-container{
+      display:inline-block;
+    }
+    .ratings .pull-right{
+      margin-top:2px;
+    }
+    .rating-container .caption{
+      display:none; /* ẩn caption mặc định */
+    }
+    /* Hover nhẹ như Nike: viền đậm + bóng nhẹ */
+.product-card:hover{
+    border-color:#ddd;
+    box-shadow:0 4px 12px rgba(0,0,0,0.06);
+}
+
+.product-card-link{
+  display:block;
+  text-decoration:none;
+  color:inherit;
+}
+.product-card-link:hover{
+  text-decoration:none;
+}
+
+/* ===== PRODUCT MODAL ===== */
+.product-modal .modal-dialog{
+    width: 900px;          /* modal rộng hơn chút */
+}
+
+.product-modal .modal-content{
+    border-radius: 8px;
+    border: none;
+}
+
+.product-modal .modal-header{
+    border-bottom: none;
+    padding-bottom: 0;
+}
+
+.product-modal .modal-body{
+    padding: 15px 25px 25px;
+}
+
+/* layout 2 cột */
+.pm-gallery{
+    display: flex;
+    align-items: stretch;
+}
+
+/* cột thumbnail dọc bên trái */
+.pm-thumbs{
+    width: 80px;
+    margin-right: 15px;
+}
+
+.pm-thumb{
+    width: 60px;
+    height: 60px;
+    margin-bottom: 8px;
+    overflow: hidden;
+    border-radius: 4px;
+    border: 2px solid transparent;
+    cursor: pointer;
+    background: #f5f5f5;
+}
+
+.pm-thumb img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.pm-thumb.active{
+    border-color: #000;
+}
+
+/* ảnh lớn ở giữa */
+.pm-main-image{
+    flex: 1;
+    background: #f7f7f7;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 360px;
+}
+
+.pm-main-image img{
+    max-height: 320px;
+    max-width: 100%;
+    width: auto;
+    height: auto;
+}
+
+/* Cột phải – info */
+.pm-title{
+    font-size: 22px;
+    font-weight: 600;
+    margin-top: 0;
+}
+
+.pm-subtitle{
+    color: #666;
+    margin-bottom: 10px;
+}
+
+.pm-price{
+    font-size: 20px;
+    font-weight: 600;
+    margin: 15px 0;
+}
+
+/* chọn màu – ô vuông nhỏ */
+.pm-color-option{
+    width: 70px;
+    height: 70px;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    overflow: hidden;
+    cursor: pointer;
+    display: inline-block;
+    margin-right: 10px;
+}
+.pm-color-option img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.pm-color-option.active{
+    border-color: #000;
+}
+
+/* chữ Select Size + Size Guide */
+.pm-size-header{
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+/* lưới size */
+.pm-size-grid{
+    margin-bottom: 20px;
+}
+
+.pm-size-btn{
+    display: inline-block;
+    width: 30%;
+    margin: 0 8px 8px 0;
+    padding: 10px 0;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    background: #fff;
+    text-align: center;
+    font-size: 13px;
+    cursor: pointer;
+}
+.pm-size-btn.disabled{
+    color: #aaa;
+    background: #f5f5f5;
+    cursor: not-allowed;
+}
+.pm-size-btn.active{
+    border-color: #000;
+}
+
+/* nút Add to Bag + Favourite */
+.pm-add-btn{
+    width: 100%;
+    padding: 12px 0;
+    border-radius: 999px;
+    background: #111;
+    color: #fff;
+    font-size: 15px;
+    border: none;
+    margin-bottom: 12px;
+}
+
+.pm-fav-btn{
+    width: 100%;
+    padding: 10px 0;
+    border-radius: 999px;
+    background: #fff;
+    border: 1px solid #ccc;
+    font-size: 14px;
+}
+.pm-fav-btn span.glyphicon{
+    margin-left: 5px;
+}
+
+/* ==== REVIEW TRONG MODAL ==== */
+.pm-review-block{
+    margin-top: 20px;
+    border-top: 1px solid #eee;
+    padding-top: 12px;
+    font-size: 12px;
+}
+
+.pm-review-summary{
+    margin-bottom: 8px;
+}
+
+.pm-review-stars .glyphicon{
+    color: #f0ad4e;
+    margin-right: 2px;
+}
+
+.pm-review-summary span.pm-review-count{
+    margin-left: 6px;
+    color: #666;
+}
+
+.pm-review-list{
+    max-height: 140px;          /* cho nó không quá dài */
+    overflow-y: auto;
+}
+
+.pm-review-item{
+    margin-bottom: 8px;
+}
+
+.pm-review-item strong{
+    font-size: 12px;
+}
+
+.pm-review-date{
+    color: #999;
+    font-size: 11px;
+}
+
+/* ==== SẢN PHẨM GỢI Ý TRONG MODAL ==== */
+.pm-related{
+    margin-top: 15px;
+}
+
+.pm-related-title{
+    font-weight: 600;
+    margin-bottom: 10px;
+    font-size: 14px;
+}
+
+.pm-related-item{
+    font-size: 12px;
+    cursor: pointer;
+}
+
+.pm-related-thumb{
+    background: #f7f7f7;
+    border-radius: 4px;
+    margin-bottom: 6px;
+    overflow: hidden;
+}
+
+.pm-related-thumb img{
+    width: 100%;
+    height: 100px;
+    object-fit: cover;
+}
+
+.pm-related-name{
+    font-weight: 600;
+    margin-bottom: 2px;
+}
+
+.pm-related-price{
+    color: #333;
+}
+  </style>
+</head>
+<body>
+
+
+
+<!-- NAVIGATION (theo ecommerce.html trong PDF) -->
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <!-- Brand + button mobile -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed"
+              data-toggle="collapse"
+              data-target="#main-navbar" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+
+      <!-- Logo -->
+      <a class="navbar-brand" href="#">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/New_Balance_logo.svg/330px-New_Balance_logo.svg.png"
+             alt="Sneaker Store" class="homepage-header-logo">
+      </a>
+    </div>
+
+    <!-- Nội dung navbar -->
+    <div class="collapse navbar-collapse" id="main-navbar">
+      <!-- Menu trái -->
+      <ul class="nav navbar-nav">
+        <li class="active">
+          <a href="#">Home <span class="sr-only">(current)</span></a>
+        </li>
+        <li><a href="#">Men</a></li>
+        <li><a href="#">Women</a></li>
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle"
+             data-toggle="dropdown" role="button"
+             aria-haspopup="true" aria-expanded="false">
+            Collections <span class="caret"></span>
+          </a>
+          <ul class="dropdown-menu">
+            <li><a href="#">Running</a></li>
+            <li><a href="#">Lifestyle</a></li>
+            <li><a href="#">Training</a></li>
+            <li role="separator" class="divider"></li>
+            <li><a href="#">Sale</a></li>
+          </ul>
+        </li>
+      </ul>
+
+      <!-- Search: desktop -->
+      <form class="navbar-form navbar-left hidden-xs">
+        <div class="form-group">
+          <input type="text" class="form-control"
+                 placeholder="Search for shoes">
+        </div>
+        <button type="submit" class="btn btn-default">Search</button>
+      </form>
+
+      <!-- Search: mobile -->
+      <form class="visible-xs-inline-block" style="margin-top:10px">
+        <div class="form-group">
+          <input type="text" class="form-control"
+                 placeholder="Search for shoes">
+        </div>
+      </form>
+
+      <!-- Menu phải: cart + user + sign in -->
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+          <a href="#">
+            <span class="badge pull-right">2</span>
+            <i class="glyphicon glyphicon-shopping-cart"></i>
+          </a>
+        </li>
+        <li><a href="account.html">
+          <i class="glyphicon glyphicon-user"></i></a></li>
+        <li><a href="#" data-toggle="modal" data-target="#loginModal">
+          Sign in</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- Thanh thông báo trên cùng -->
+<div class="top-bar">
+  <a href="#">Get 20% off select styles on orders $150+</a> |
+  <a href="#">Shop now</a> <span>•</span>
+  <a href="#">Sign up</a>
+</div>
+
+<!-- MAIN CONTENT (Wonen's Shoes) -->
+<div class="container-fluid main-wrap">
+  <div class="row">
+
+    <!-- SIDEBAR LEFT -->
+    <div class="col-sm-3">
+      <div class="filter-section">
+        <div class="sidebar-title">Women's Shoes</div>
+        <ul class="list-unstyled" style="max-height:360px; overflow-y:auto;">
+          <li><a href="#">LifeStyle</a></li>
+          <li>Running</li>
+          <li>Basketball</li>
+          <li>Pickeball</li>
+          <li>Training &amp; Gym</li>
+          <li>Skateboarding</li>
+          <li>Golf</li>
+          <li>Tennis</li>
+          <li>Athletics</li>
+          <li>Walking</li>
+          <li>Sandal</li>
+        </ul>
+      </div>
+
+      <div class="filter-section">
+        <h5>Gender</h5>
+        <p>Women</p>
+      </div>
+
+      <div class="filter-section">
+        <h5>Shop By Price</h5>
+        <p>Under $25</p>
+        <p>$25 – $49.99</p>
+        <p>$50 – $74.99</p>
+        <p>$75 – $99.99</p>
+        <p>over $100</p>
+      </div>
+    </div>
+
+    <!-- RIGHT: PRODUCT LIST -->
+    <div class="col-sm-9">
+      <div class="page-header-row clearfix">
+        <div class="pull-left">
+          <h2 class="page-title">Women's Shoes <span>(610)</span></h2>
+        </div>
+        <div class="pull-right header-actions">
+          <a class="filter-link">Hide Filters
+            <span class="glyphicon glyphicon-filter"></span></a>
+          <a class="filter-link">Sort By <span class="caret"></span></a>
+        </div>
+      </div>
+
+      <div class="row">
+
+      <div class="col-sm-4">
+        <a href="#"
+     class="product-card-link"
+     data-toggle="modal"
+     data-target="#product1Modal">
+  <div class="product-card">
+
+    <!-- CARD 1 -Ảnh lớn -->
+    <div class="product-image-wrap">
+      <img src="https://nb.scene7.com/is/image/NB/w108014p_nb_02_i?$pdpflexf2$&qlt=80&wid=880&hei=880" alt="Fresh Foam X 1080v14">
+    </div>
+
+    <!-- Chấm màu -->
+    <div class="color-dots">
+      <span class="dot dot-grey"></span>
+      <span class="dot dot-black"></span>
+    </div>
+
+    <!-- Text phần dưới -->
+    <div class="product-label promo">Best Seller</div>
+    <div class="product-name">Fresh Foam X 1080v14</div>
+    <div class="product-subtitle">
+      Women's Running 
+    </div>
+    <div class="product-price">$129.99</div>
+
+    <!-- Kho + progress -->
+    <div class="stock-status clearfix">
+      <small class="pull-left">Còn lại 35 / 100 đôi</small>
+      <div class="progress">
+        <div class="progress-bar progress-bar-warning"
+             role="progressbar" aria-valuenow="65"
+             aria-valuemin="0" aria-valuemax="100"
+             style="width:65%;"></div>
+      </div>
+       </a>
+    </div>
+
+            <!-- RATING + REVIEWS (giống cấu trúc trong PDF) -->
+           <div class="ratings clearfix">
+    <p class="pull-right">
+        <a href="#">32 reviews</a>
+    </p>
+    <p>
+        <span class="glyphicon glyphicon-star"></span>
+        <span class="glyphicon glyphicon-star"></span>
+        <span class="glyphicon glyphicon-star"></span>
+        <span class="glyphicon glyphicon-star"></span>
+        <span class="glyphicon glyphicon-star-empty"></span>
+    </p>
+</div>
+          </div>
+        </div>
+
+        <!-- CARD 2 -->
+<div class="col-sm-4">
+  <div class="product-card">
+
+    <div class="product-image-wrap">
+      <img src="https://nb.scene7.com/is/image/NB/ws327rd_nb_02_i?$pdpflexf2$&qlt=80&wid=880&hei=880
+" alt="327">
+    </div>
+
+    <div class="color-dots">
+      <span class="dot dot-black"></span>
+      <span class="dot dot-grey"></span>
+    </div>
+
+    <div class="product-name">327</div>
+    <div class="product-subtitle">Women's Lifestyle</div>
+    <div class="product-price">$104.99</div>
+
+    <div class="stock-status clearfix">
+      <small class="pull-left">Còn lại 15 / 80 đôi</small>
+      <div class="progress">
+        <div class="progress-bar progress-bar-danger"
+             role="progressbar" aria-valuenow="80"
+             aria-valuemin="0" aria-valuemax="100"
+             style="width:80%;"></div>
+      </div>
+    </div>
+
+            <div class="ratings clearfix">
+    <p class="pull-right">
+        <a href="#">32 reviews</a>
+    </p>
+    <p>
+        <span class="glyphicon glyphicon-star"></span>
+        <span class="glyphicon glyphicon-star"></span>
+        <span class="glyphicon glyphicon-star"></span>
+        <span class="glyphicon glyphicon-star"></span>
+        <span class="glyphicon glyphicon-star-empty"></span>
+    </p>
+</div>
+          </div>
+        </div>
+
+        <!-- CARD 3 -->
+<div class="col-sm-4">
+  <div class="product-card">
+
+    <div class="product-image-wrap">
+      <img src="https://nb.scene7.com/is/image/NB/u9060etn_nb_02_i?$pdpflexf2$&qlt=80&wid=880&hei=880" alt="9060">
+    </div>
+
+    <div class="color-dots">
+      <span class="dot dot-white"></span>
+      <span class="dot dot-red"></span>
+    </div>
+
+    <!-- Card này không có label màu cam/đỏ giống Nike -->
+      <div class="product-label best">NB Exclusive</div>
+    <div class="product-name">9060</div>
+    <div class="product-subtitle">Unisex Lifestyle</div>
+    <div class="product-price">$159.99</div>
+
+    <div class="stock-status clearfix">
+      <small class="pull-left">Còn lại 60 / 150 đôi</small>
+      <div class="progress">
+        <div class="progress-bar progress-bar-success"
+             role="progressbar" aria-valuenow="40"
+             aria-valuemin="0" aria-valuemax="100"
+             style="width:40%;"></div>
+      </div>
+    </div>
+            <div class="ratings clearfix">
+    <p class="pull-right">
+        <a href="#">32 reviews</a>
+    </p>
+    <p>
+        <span class="glyphicon glyphicon-star"></span>
+        <span class="glyphicon glyphicon-star"></span>
+        <span class="glyphicon glyphicon-star"></span>
+        <span class="glyphicon glyphicon-star"></span>
+        <span class="glyphicon glyphicon-star-empty"></span>
+    </p>
+</div>
+          </div>
+        </div>
+
+      </div><!-- /.row products -->
+    </div><!-- /.col-sm-9 -->
+  </div><!-- /.row -->
+</div><!-- /.main-wrap -->
+
+<!-- JS -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/xzoom@1.0.15/dist/xzoom.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-star-rating/4.0.0/js/star-rating.min.js"></script>
+
+<script>
+  $(function () {
+    // Zoom ảnh
+    $('.xzoom').xzoom({
+      position: 'right',
+      bg: true
+    });
+
+    // Rating sao (thay thế toàn bộ glyphicon-star)
+    $('.rating').rating({
+      showClear: false,
+      showCaption: false
+    });
+  });
+</script>
+<!-- MODAL SẢN PHẨM 1 -->
+<div class="modal fade product-modal" id="product1Modal" tabindex="-1" role="dialog">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">
+          <span>&times;</span>
+        </button>
+      </div>
+
+      <div class="modal-body">
+        <div class="row">
+
+          <!-- LEFT: GALLERY -->
+          <div class="col-sm-7">
+            <div class="pm-gallery">
+
+              <!-- thumbnails dọc -->
+              <div class="pm-thumbs">
+                <!-- mỗi thumb có data-big để đổi ảnh lớn -->
+                <div class="pm-thumb active" data-big="imgs/1.avif">
+                  <img src="
+https://nb.scene7.com/is/image/NB/w108014p_nb_02_i?$pdpflexf2$&qlt=80&wid=880&hei=880" alt="">
+                </div>
+                <div class="pm-thumb" data-big="imgs/2.avif">
+                  <img src="
+https://nb.scene7.com/is/image/NB/w108014p_nb_05_i?$dw_detail_main_lg$&bgc=f1f1f1&layer=1&bgcolor=f1f1f1&blendMode=mult&scale=10&wid=1600&hei=1600" alt="">
+                </div>
+                <div class="pm-thumb" data-big="imgs/3.avif">
+                  <img src="
+https://nb.scene7.com/is/image/NB/w108014p_nb_04_i?$dw_detail_main_lg$&bgc=f1f1f1&layer=1&bgcolor=f1f1f1&blendMode=mult&scale=10&wid=1600&hei=1600" alt="">
+                </div>
+                <div class="pm-thumb" data-big="imgs/4.avif">
+                  <img src="https://nb.scene7.com/is/image/NB/w108014p_nb_07_i?$dw_detail_main_lg$&bgc=f1f1f1&layer=1&bgcolor=f1f1f1&blendMode=mult&scale=10&wid=1600&hei=1600" alt="">
+                </div>
+                <div class="pm-thumb" data-big="imgs/5.avif">
+                  <img src="https://nb.scene7.com/is/image/NB/w108014p_nb_06_i?$dw_detail_main_lg$&bgc=f1f1f1&layer=1&bgcolor=f1f1f1&blendMode=mult&scale=10&wid=1600&hei=1600" alt="">
+                </div>
+              </div>
+
+              <!-- ảnh lớn -->
+              <div class="pm-main-image">
+                <img id="pm-main-img-1"
+                     src="imgs/1.webp"
+                     alt="Fresh Foam X 1080v14">
+              </div>
+
+            </div>
+          </div>
+
+          <!-- RIGHT: INFO -->
+          <div class="col-sm-5">
+            <h3 class="pm-title">Fresh Foam X 1080v14</h3>
+            <div class="pm-subtitle">Thiết kế thoải mái, mềm mại, giúp đôi chân vững vàng trên mọi hành trình. Với thiết kế thời thượng, đẹp mắt, New Balance Fresh Foam X 1080v14 là lựa chọn số một cho nữ giới năng động, yêu thích thể thao.</div>
+            <div class="pm-price">$129.99</div>
+
+            <!-- chọn màu -->
+            <div style="margin-bottom: 15px;">
+              <div class="pm-color-option active">
+                <img src="imgs/2.webp" alt="">
+              </div>
+              <div class="pm-color-option">
+                <img src="imgs/3.webp" alt="">
+              </div>
+              <div class="pm-color-option">
+                <img src="imgs/4.webp" alt="">
+              </div>
+            </div>
+
+            <!-- header size -->
+            <div class="pm-size-header clearfix">
+              <span class="pull-left">Select Size</span>
+              <span class="pull-right" style="font-size:12px;">
+                <span class="glyphicon glyphicon-resize-full"></span> Size Guide
+              </span>
+            </div>
+
+            <!-- grid size -->
+            <div class="pm-size-grid">
+              <div class="pm-size-btn">EU 38.5</div>
+              <div class="pm-size-btn">EU 39</div>
+              <div class="pm-size-btn">EU 40</div>
+
+              <div class="pm-size-btn">EU 40.5</div>
+              <div class="pm-size-btn">EU 41</div>
+              <div class="pm-size-btn">EU 42</div>
+
+              <div class="pm-size-btn">EU 42.5</div>
+              <div class="pm-size-btn">EU 43</div>
+              <div class="pm-size-btn">EU 44</div>
+
+              <div class="pm-size-btn">EU 44.5</div>
+              <div class="pm-size-btn">EU 45</div>
+              <div class="pm-size-btn">EU 45.5</div>
+
+              <div class="pm-size-btn">EU 46</div>
+              <div class="pm-size-btn">EU 47</div>
+              <div class="pm-size-btn disabled">EU 47.5</div>
+            </div>
+
+            <!-- buttons -->
+            <button class="pm-add-btn">Add to Bag</button>
+            <button class="pm-fav-btn">
+              Favourite
+              <span class="glyphicon glyphicon-heart-empty"></span>
+            </button>
+<!-- REVIEW BLOCK -->
+<div class="pm-review-block">
+  <!-- Tổng quan rating -->
+  <div class="pm-review-summary">
+    <span class="pm-review-stars">
+      <span class="glyphicon glyphicon-star"></span>
+      <span class="glyphicon glyphicon-star"></span>
+      <span class="glyphicon glyphicon-star"></span>
+      <span class="glyphicon glyphicon-star"></span>
+      <span class="glyphicon glyphicon-star-empty"></span>
+    </span>
+    <span class="pm-review-count">
+      4.5/5 · 32 reviews
+    </span>
+  </div>
+
+  <!-- Danh sách vài review -->
+  <div class="pm-review-list">
+    <div class="pm-review-item">
+      <strong>Anh T.</strong>
+      <span class="pm-review-date">· 1 ngày trước</span><br>
+      Đi rất êm chân, mang đi học cả ngày không bị đau gót.
+    </div>
+
+    <div class="pm-review-item">
+      <strong>Thai D.</strong>
+      <span class="pm-review-date">· 1 tuần trước</span><br>
+      Thoái mải, đẹp, dễ phối.
+    </div>
+
+    <div class="pm-review-item">
+      <strong>Nhi T.</strong>
+      <span class="pm-review-date">· 3 tuần trước</span><br>
+      NB thì khỏi chê về độ êm, màu đa dạng.
+    </div>
+  </div>
+</div>
+          </div>
+<div class="modal-body">
+  <div class="row">
+    <!-- toàn bộ phần gallery + info hiện tại của bạn -->
+  </div> <!-- hết row chính -->
+
+  <!-- BẮT ĐẦU: CÁC SẢN PHẨM KHÁC -->
+  <hr>
+  <div class="pm-related">
+    <div class="pm-related-title">Maybe you like?</div>
+    <div class="row">
+      <div class="col-sm-4 pm-related-item">
+        <div class="pm-related-thumb">
+          <img src="https://nb.scene7.com/is/image/NB/mr530asm_nb_02_i?$pdpflexf2$&qlt=80&wid=880&hei=880" alt="530">
+        </div>
+        <div class="pm-related-name">530</div>
+        <div class="pm-related-price">$109.99</div>
+      </div>
+
+      <div class="col-sm-4 pm-related-item">
+        <div class="pm-related-thumb">
+          <img src="https://nb.scene7.com/is/image/NB/u9060ccc_nb_02_i?$pdpflexf2$&qlt=80&wid=880&hei=880" alt="9060">
+        </div>
+        <div class="pm-related-name">9060</div>
+        <div class="pm-related-price">$155.99</div>
+      </div>
+
+      <div class="col-sm-4 pm-related-item">
+        <div class="pm-related-thumb">
+          <img src="https://nb.scene7.com/is/image/NB/ws327rd_nb_02_i?$pdpflexf2$&qlt=80&wid=880&hei=880" alt="327">
+        </div>
+        <div class="pm-related-name">327</div>
+        <div class="pm-related-price">$104.99</div>
+      </div>
+    </div>
+  </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div> <!-- hết modal-body -->
+<script>
+  $(function () {
+    // đổi ảnh lớn khi click thumbnail
+    $('.pm-thumb').on('click', function () {
+      var bigSrc = $(this).data('big');
+      $('#pm-main-img-1').attr('src', bigSrc);
+      $(this).addClass('active').siblings('.pm-thumb').removeClass('active');
+    });
+
+    // chọn size
+    $('.pm-size-btn').on('click', function () {
+      if ($(this).hasClass('disabled')) return;
+      $('.pm-size-btn').removeClass('active');
+      $(this).addClass('active');
+    });
+
+    // chọn màu (đơn giản chỉ highlight ô)
+    $('.pm-color-option').on('click', function () {
+      $('.pm-color-option').removeClass('active');
+      $(this).addClass('active');
+    });
+  });
+</script>
+
+</body>
+</html>
